@@ -1,0 +1,49 @@
+version: '2'
+
+services:
+    db:
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+    redis:
+        image: redis:alpine
+        ports:
+            - 6379:6379
+    php:
+        build: ./docker/php7-fpm
+        ports:
+            - 9000:9000
+        links:
+            - db:mysqldb
+            - redis
+        volumes:
+            - .:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/logs
+    nginx:
+        image: nginx
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+            - .:/var/www/symfony:ro
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+    elk:
+        image: willdurand/elk
+        ports:
+            - 81:80
+        volumes:
+            - ./elk/logstash:/etc/logstash
+            - ./elk/logstash/patterns:/opt/logstash/patterns
+        volumes_from:
+            - php
+            - nginx

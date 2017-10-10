@@ -1,0 +1,30 @@
+# Acceder en bash
+$ docker-compose exec php bash
+
+# Composer (ex : composer update)
+$ docker-compose exec php composer update
+
+# Commandes Symfony
+$ docker-compose exec php php /var/www/symfony/app/console cache:clear
+
+# Commandes Symfony bis (avec un alias = plus simple!)
+$ docker-compose exec php bash
+$ sf cache:clear
+
+# Commandes MySQL
+$ docker-compose exec db mysql -uroot -p"root"
+
+# Commandes Redis
+$ docker-compose exec redis redis-cli
+
+# F***ing cache/logs ;)
+$ sudo chmod -R 777 symfony/app/cache symfony/app/logs
+
+# Vérifier la consommation de CPU
+$ docker stats $(docker inspect -f "" $(docker ps -q))
+
+# Supprimer conteneurs
+$ docker rm $(docker ps -a -q)
+
+# Lister les process en cours
+$ docker-composer ps
