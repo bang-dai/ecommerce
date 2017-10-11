@@ -22,3 +22,8 @@
 docker-compose.yml
 logs
 elk
+bin
+!bin/console
+!bin/docker-tools
+!bin/symfony_requirements
+!bin/README.md
