@@ -1,7 +1,7 @@
 pre-commit:
     enabled: true
     execute:
-        composer: false
+        composer: true
         jsonlint: true
         phplint: true
         phpmd:

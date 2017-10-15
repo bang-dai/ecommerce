@@ -47,3 +47,10 @@ services:
         volumes_from:
             - php
             - nginx
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8080:80"
+        links:
+            - db

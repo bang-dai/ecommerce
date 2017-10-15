@@ -4,15 +4,36 @@ sf3-ecommerce
 A next generation of ecommerce build with symfony 3 and more.
 
 
-PHP 7.1
+* PHP 7.1
+* NGINX
+* MySQL
+* Redis
+* ELK (coming soon)
+* REST API (coming soon)
+* React JS (coming soon)
 
-NGINX
+Start Env
+---------
 
-MySQL
+1) Install Docker
+2) docker-composer build
+3) docker-composer up
 
-Redis
+Stop Env
+--------
 
-ELK
+1) docker-compose stop
 
-1) docker-composer build
-2) docker-composer up
+
+Build project
+-------------
+
+1) Install Composer
+2) Composer install
+
+
+Access to
+---------
+
+* Web : localhost
+* phpMyAdmin : localhost:8080
