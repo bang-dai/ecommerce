@@ -1,6 +1,6 @@
 <?php
 
-namespace EcommerceBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/page")
  * Class CartController
- * @package EcommerceBundle\Controller
+ * @package AppBundle\Controller
  */
 class CmsController extends Controller
 {
@@ -18,7 +18,6 @@ class CmsController extends Controller
      */
     public function indexAction($id)
     {
-        return $this->render('EcommerceBundle:Cms:show.html.twig');
+        return $this->render(':cms:show.html.twig');
     }
-
 }

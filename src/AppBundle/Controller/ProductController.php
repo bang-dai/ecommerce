@@ -1,6 +1,6 @@
 <?php
 
-namespace EcommerceBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/product")
  * Class ProductController
- * @package EcommerceBundle\Controller
+ * @package AppBundle\Controller
  */
 class ProductController extends Controller
 {
@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('EcommerceBundle:Product:index.html.twig');
+        return $this->render(':product:index.html.twig');
     }
 
 
@@ -28,6 +28,6 @@ class ProductController extends Controller
      */
     public function showAction($id)
     {
-        return $this->render('EcommerceBundle:Product:show.html.twig');
+        return $this->render(':product:show.html.twig');
     }
 }

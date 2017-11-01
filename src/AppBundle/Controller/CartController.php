@@ -1,6 +1,6 @@
 <?php
 
-namespace EcommerceBundle\Controller;
+namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/cart")
  * Class CartController
- * @package EcommerceBundle\Controller
+ * @package AppBundle\Controller
  */
 class CartController extends Controller
 {
@@ -18,7 +18,7 @@ class CartController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('EcommerceBundle:Cart:index.html.twig');
+        return $this->render(':cart:index.html.twig');
     }
 
 
@@ -28,7 +28,7 @@ class CartController extends Controller
      */
     public function deliveryAction()
     {
-        return $this->render('EcommerceBundle:Cart:delivery.html.twig');
+        return $this->render(':cart:delivery.html.twig');
     }
 
     /**
@@ -37,6 +37,6 @@ class CartController extends Controller
      */
     public function confirmAction()
     {
-        return $this->render('EcommerceBundle:Cart:confirm.html.twig');
+        return $this->render(':cart:confirm.html.twig');
     }
 }
