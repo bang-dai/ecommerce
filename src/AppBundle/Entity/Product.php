@@ -49,6 +49,27 @@ class Product
      */
     private $available;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @var
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Vat", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @var
+     */
+    private $vat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @var
+     */
+    private $category;
+
 
     /**
      * Get id
@@ -154,5 +175,77 @@ class Product
     public function getAvailable()
     {
         return $this->available;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Media $image
+     *
+     * @return Product
+     */
+    public function setImage(\AppBundle\Entity\Media $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param \AppBundle\Entity\Vat $vat
+     *
+     * @return Product
+     */
+    public function setVat(\AppBundle\Entity\Vat $vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return \AppBundle\Entity\Vat
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

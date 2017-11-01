@@ -51,6 +51,14 @@ class Orders
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="orders")
+     * @ORM\JoinColumn(nullable=true)
+     * @var
+     */
+    private $user;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -154,5 +162,29 @@ class Orders
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Orders
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

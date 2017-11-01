@@ -28,6 +28,13 @@ class Category
      */
     private $name;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Media", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     * @var
+     */
+    private $image;
+
 
     /**
      * Get id
@@ -61,5 +68,29 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Media $image
+     *
+     * @return Category
+     */
+    public function setImage(\AppBundle\Entity\Media $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

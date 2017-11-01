@@ -79,6 +79,14 @@ class Address
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="address", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     * @var
+     */
+    private $user;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -278,5 +286,29 @@ class Address
     public function getAddress2()
     {
         return $this->address2;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Address
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
