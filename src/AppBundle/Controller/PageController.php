@@ -14,10 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends Controller
 {
     /**
-     * @Route("/{id}", name="page.show")
+     * @Route("/{id}", name="page.show", requirements={"id" = "\d+"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($id)
+    public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository(Page::class)->find($id);

@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function byCategory($id)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.category = :category')
+            ->orderBy('p.id', 'DESC')
+            ->setParameter('category', $id);
+
+        return $qb->getQuery()->getResult();
+    }
 }

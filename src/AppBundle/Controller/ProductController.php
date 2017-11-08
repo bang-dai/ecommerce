@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,21 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="product.index")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexAction()
-    {
-        return $this->render(':product:index.html.twig');
-    }
-
-
-    /**
-     * @Route("/{id}", name="product.show", requirements={"id" = "\d+"}, defaults={ "id" = 1})
+     * @Route("/{id}", name="product.show", requirements={"id" = "\d+"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($id)
     {
-        return $this->render(':product:show.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository(Product::class)->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException('Product not found');
+        }
+
+        return $this->render(':product:show.html.twig', ['product' => $product]);
     }
 }

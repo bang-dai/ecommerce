@@ -6,14 +6,16 @@
             <div class="span9">
                 <ul class="thumbnails">
 
-                    {% for i in 0..10 %}
+                    {% for product in products %}
                     <li class="span3">
                         <div class="thumbnail">
-                            <img src="{{ asset('img/holder.jpeg') }}" alt="" width="300" height="300">
+                            <a href="{{ path('product.show', { 'id' : product.id }) }}">
+                                <img src="{{ product.image.path }}" alt="" width="300" height="300">
+                            </a>
                             <div class="caption">
-                                <h4>Thumbnail label</h4>
-                                <p>100,00 €</p>
-                                <a class="btn btn-primary" href="{{ path("product.show", {"id" : 10}) }}">Plus d'infos</a>
+                                <h4>{{ product.name }}</h4>
+                                <p>{{ product.price }} €</p>
+                                <a class="btn btn-primary" href="{{ path("product.show", {'id' : product.id}) }}">Plus d'infos</a>
                                 <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
                             </div>
                         </div>
