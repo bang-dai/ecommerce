@@ -17,3 +17,9 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+twig:
+    globals:
+        tel: 01 44 55 66 77
+        fax: 01 44 55 66 88
+        address: 3 rue des jardins 75000 Paris
