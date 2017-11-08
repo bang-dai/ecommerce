@@ -4,8 +4,8 @@
         <div class="row">
             {% include ':layout:nav.html.twig' %}
             <div class="span9">
+                {% if products|length > 0 %}
                 <ul class="thumbnails">
-
                     {% for product in products %}
                     <li class="span3">
                         <div class="thumbnail">
@@ -22,7 +22,6 @@
                     </li>
                     {% endfor %}
                 </ul>
-
                 <div class="pagination">
                     <ul>
                         <li class="disabled"><span>Précédent</span></li>
@@ -34,7 +33,9 @@
                         <li><a href="#">Suivant</a></li>
                     </ul>
                 </div>
-
+                {% else %}
+                    <h1>No product</h1>
+                {% endif %}
             </div>
         </div>
     </div>

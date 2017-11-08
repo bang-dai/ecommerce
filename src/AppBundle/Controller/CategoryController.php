@@ -32,11 +32,11 @@ class CategoryController extends Controller
     public function categoryProductsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository(Product::class)->byCategory($id);
-        if (!$products) {
-            throw $this->createNotFoundException('Products not found');
+        if (!$em->getRepository(Category::class)->find($id)) {
+            throw $this->createNotFoundException('Category not found');
         }
-
+        $products = $em->getRepository(Product::class)->byCategory($id);
+        
         return $this->render(':product:index.html.twig', ['products' => $products]);
     }
 }

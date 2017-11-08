@@ -20,4 +20,21 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    /**
+     * TODO: Upgrade to ES search later
+     * @param $pattern
+     * @return array
+     */
+    public function search($pattern)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.name like :pattern')
+            ->orderBy('p.id', 'DESC')
+            ->setParameter('pattern', $pattern);
+
+        return $qb->getQuery()->getResult();
+    }
 }
