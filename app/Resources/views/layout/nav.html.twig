@@ -15,17 +15,16 @@
         </div>
     </div>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {% include ':layout:nav.user.connected.html.twig' %}
-    {% else %}
-        {% include ':layout:nav.user.html.twig' %}
-    {% endif %}
-
-
     <div class="well">
         <ul class="nav nav-list">
             <li class="nav-header">Nos produits</li>
             {{ render(controller('AppBundle:Category:menu')) }}
         </ul>
     </div>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include ':layout:nav.user.connected.html.twig' %}
+    {% else %}
+        {% include ':layout:nav.user.html.twig' %}
+    {% endif %}
 </div>

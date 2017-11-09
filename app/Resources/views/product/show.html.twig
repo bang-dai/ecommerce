@@ -1,6 +1,7 @@
 {% extends "::base.html.twig" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block description %}{{ product.description }}{% endblock %}
 {% block body %}
-
 <div class="container">
     <div class="row">
         {% include ':layout:nav.html.twig' %}
@@ -14,7 +15,7 @@
                     <h4>{{ product.name }}</h4>
                     <h5>{{ product.category.name }}</h5>
                     <p>{{ product.description }}</p>
-                    <h4>{{ product.price }} €</h4>
+                    <h4>{{ product.price|vat(product.vat.multiplicate) }} € TTC</h4>
                     <form action="panier.php">
 
                         <select name="qte" class="span1">
