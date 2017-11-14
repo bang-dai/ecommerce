@@ -15,8 +15,8 @@
                             <div class="caption">
                                 <h4>{{ product.name }}</h4>
                                 <p>{{ product.price|vat(product.vat.multiplicate) }} € TTC</p>
-                                <a class="btn btn-primary" href="{{ path("product.show", {'id' : product.id}) }}">Plus d'infos</a>
-                                <a class="btn btn-success" href="panier.php">Ajouter au panier</a>
+                                <a class="btn btn-primary" href="{{ path('product.show', {'id' : product.id}) }}">Plus d'infos</a>
+                                <a class="btn btn-success" href="{{ path('cart.add', {'id' : product.id}) }}">Ajouter au panier</a>
                             </div>
                         </div>
                     </li>

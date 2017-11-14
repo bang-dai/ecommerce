@@ -5,7 +5,6 @@
         {% include ':layout:nav.html.twig' %}
         <div class="span9">
             <h2>Votre parnier</h2>
-            <form>
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
@@ -16,29 +15,27 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for product in products %}
+                    <form action="{{ path('cart.add', {'id' : product.id}) }}" method="get">
                     <tr>
-                        <td>AB29837</td>
+                        <td>{{ product.name }}</td>
                         <td>
-                            <select class="span1"><option>1</option></select>&nbsp;
+                            <select name="qte" class="span1" onchange="this.form.submit()">
+                                {% for i in 1..20 %}
+                                    <option value="{{ i }}" {% if i == cart[product.id] %} selected {% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
                             <a href="#"><i class="icon-refresh"></i></a>
-                            <a href="#"><i class="icon-trash"></i></a>
+                            <a href="{{ path('cart.delete', {'id' : product.id}) }}"><i class="icon-trash"></i></a>
                         </td>
-                        <td>333,33€</td>
-                        <td>333,33€</td>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ product.price * cart[product.id] }} €</td>
                     </tr>
-                    <tr>
-                        <td>AC34423</td>
-                        <td>
-                            <select class="span1"><option>1</option></select>&nbsp;
-                            <a href="#"><i class="icon-refresh"></i></a>
-                            <a href="#"><i class="icon-trash"></i></a>
-                        </td>
-                        <td>333,33€</td>
-                        <td>666,66€</td>
-                    </tr>
+                    </form>
+                    {% endfor %}
                     </tbody>
                 </table>
-            </form>
+
 
             <dl class="dl-horizontal pull-right">
                 <dt>Total HT :</dt>

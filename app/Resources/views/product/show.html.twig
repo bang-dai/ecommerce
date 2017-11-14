@@ -16,10 +16,12 @@
                     <h5>{{ product.category.name }}</h5>
                     <p>{{ product.description }}</p>
                     <h4>{{ product.price|vat(product.vat.multiplicate) }} € TTC</h4>
-                    <form action="panier.php">
+                    <form action="{{ path('cart.add', {'id' : product.id}) }}" method="get">
 
                         <select name="qte" class="span1">
-                            <option>1</option>
+                            {% for i in 1..10 %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
                         </select>
 
                         <div>
