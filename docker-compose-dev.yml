@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+    db:
+        image: mysql:5.7
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+    php:
+        build: ./docker/php7-fpm
+        ports:
+            - 9000:9000
+        links:
+            - db:mysqldb
+        volumes:
+            - app-sync:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/logs
+    nginx:
+        image: nginx
+        ports:
+            - 80:80
+        links:
+            - php
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+            - .:/var/www/symfony:ro
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+volumes:
+    app-sync:
+        external: true

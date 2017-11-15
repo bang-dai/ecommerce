@@ -12,17 +12,28 @@ A next generation of ecommerce build with symfony 3 and more.
 * REST API (coming soon)
 * React JS (coming soon)
 
-Start Env
+Install Docker and build
 ---------
-
 1) Install Docker
 2) docker-composer build
-3) docker-composer up
 
-Stop Env
+
+Start/Stop Env Prod
+---------
+* docker-composer up
+* docker-compose stop
+
+
+Install Docker Sync for mac slow request
+---------
+* sudo gem install docker-sync
+
+
+
+Start/Stop Env Dev
 --------
-
-1) docker-compose stop
+* make start_dev
+* make stop_dev
 
 
 Build project
