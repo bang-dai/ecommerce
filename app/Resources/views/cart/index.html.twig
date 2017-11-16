@@ -9,57 +9,70 @@
     <div class="row">
         {% include ':layout:nav.html.twig' %}
         <div class="span9">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+
             <h2>Votre parnier</h2>
-                <table class="table table-striped table-hover">
-                    <thead>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Références</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire HT</th>
+                    <th>Total HT</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if products|length == 0 %}
                     <tr>
-                        <th>Références</th>
-                        <th>Quantité</th>
-                        <th>Prix unitaire</th>
-                        <th>Total HT</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for product in products %}
-                    <form action="{{ path('cart.add', {'id' : product.id}) }}" method="get">
-                    <tr>
-                        <td>{{ product.name }}</td>
-                        <td>
-                            <select name="qte" class="span1" onchange="this.form.submit()">
-                                {% for i in 1..20 %}
-                                    <option value="{{ i }}" {% if i == cart[product.id] %} selected {% endif %}>{{ i }}</option>
-                                {% endfor %}
-                            </select>
-                            <a href="#"><i class="icon-refresh"></i></a>
-                            <a href="{{ path('cart.delete', {'id' : product.id}) }}"><i class="icon-trash"></i></a>
+                        <td colspan="4">
+                            Aucun articles dans le panier
                         </td>
-                        <td>{{ product.price }} €</td>
-                        <td>{{ product.price * cart[product.id] }} €</td>
                     </tr>
-                    </form>
-                        {% set totalHT = totalHT + (product.price * cart[product.id]) %}
-                        {% set vat = vat + (product.price * cart[product.id])|vat(product.vat.value) %}
-                        {% set total = total + (product.price * cart[product.id])|ttc(product.vat.value) %}
-                    {% endfor %}
-                    </tbody>
-                </table>
+                {% endif %}
+                {% for product in products %}
+                <form action="{{ path('cart.add', {'id' : product.id}) }}" method="get">
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <select name="qte" class="span1" onchange="this.form.submit()">
+                            {% for i in 1..20 %}
+                                <option value="{{ i }}" {% if i == cart[product.id] %} selected {% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="#"><i class="icon-refresh"></i></a>
+                        <a href="{{ path('cart.delete', {'id' : product.id}) }}"><i class="icon-trash"></i></a>
+                    </td>
+                    <td>{{ product.price|localizedcurrency('EUR') }}</td>
+                    <td>{{ (product.price * cart[product.id])|localizedcurrency('EUR') }}</td>
+                </tr>
+                </form>
+                    {% set totalHT = totalHT + (product.price * cart[product.id]) %}
+                    {% set vat = vat + (product.price * cart[product.id])|vat(product.vat.value) %}
+                    {% set total = total + (product.price * cart[product.id])|ttc(product.vat.value) %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if products|length > 0 %}
+                <dl class="dl-horizontal pull-right">
+                    <dt>Total HT :</dt>
+                    <dd>{{ totalHT|localizedcurrency('EUR') }}</dd>
 
+                    <dt>TVA :</dt>
+                    <dd>{{ vat|localizedcurrency('EUR') }}</dd>
 
-            <dl class="dl-horizontal pull-right">
-                <dt>Total HT :</dt>
-                <dd>{{ totalHT }} €</dd>
-
-                <dt>TVA :</dt>
-                <dd>{{ vat }} €</dd>
-
-                <dt>Total:</dt>
-                <dd>{{ total }} €</dd>
-            </dl>
-            <div class="clearfix"></div>
-            <a href="{{ path('cart.delivery') }}" class="btn btn-success pull-right">Valider mon panier</a>
-            <a href="index.php" class="btn btn-primary">Continuer mes achats</a>
+                    <dt>Total:</dt>
+                    <dd>{{ total|localizedcurrency('EUR') }}</dd>
+                </dl>
+                <div class="clearfix"></div>
+                <a href="{{ path('cart.delivery') }}" class="btn btn-success pull-right">Valider mon panier</a>
+            {% endif %}
+            <a href="{{ path('homepage') }}" class="btn btn-primary">Continuer mes achats</a>
         </div>
-
     </div>
 </div>
 {% endblock %}

@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -66,6 +65,7 @@ class CartController extends Controller
         //$cart[$id] = array_key_exists($id, $cart) ? $cart[$id] + (int)$qte : (int)$qte;
         $cart[$id] = array_key_exists($id, $cart) ? (int)$qte : (int)$qte;
         $session->set('cart', $cart);
+        $this->addFlash('success', 'Article ajouté avec succès');
 
         return $this->redirect($this->generateUrl('cart.index'));
     }
@@ -82,8 +82,22 @@ class CartController extends Controller
         if (array_key_exists($id, $cart)) {
             unset($cart[$id]);
             $session->set('cart', $cart);
+            $this->addFlash('success', 'Article supprimé avec succès');
         }
 
         return $this->redirect($this->generateUrl('cart.index'));
+    }
+
+    public function menuAction(Request $request)
+    {
+        $session = $request->getSession();
+        if (!$session->has('cart')) {
+            $session->set('cart', array());
+        }
+        $cart = $session->get('cart');
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository(Product::class)->findById(array_keys($cart));
+
+        return $this->render(':cart:menu.html.twig', ['products' => $products, 'cart' => $cart]);
     }
 }
