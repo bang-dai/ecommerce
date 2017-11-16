@@ -1,4 +1,9 @@
 {% extends "::base.html.twig" %}
+
+{% set totalHT = 0%}
+{% set vat = 0%}
+{% set total = 0 %}
+
 {% block body %}
 <div class="container">
     <div class="row">
@@ -32,6 +37,9 @@
                         <td>{{ product.price * cart[product.id] }} €</td>
                     </tr>
                     </form>
+                        {% set totalHT = totalHT + (product.price * cart[product.id]) %}
+                        {% set vat = vat + (product.price * cart[product.id])|vat(product.vat.value) %}
+                        {% set total = total + (product.price * cart[product.id])|ttc(product.vat.value) %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -39,13 +47,13 @@
 
             <dl class="dl-horizontal pull-right">
                 <dt>Total HT :</dt>
-                <dd>799,99€</dd>
+                <dd>{{ totalHT }} €</dd>
 
                 <dt>TVA :</dt>
-                <dd>200€</dd>
+                <dd>{{ vat }} €</dd>
 
                 <dt>Total:</dt>
-                <dd>999,99€</dd>
+                <dd>{{ total }} €</dd>
             </dl>
             <div class="clearfix"></div>
             <a href="{{ path('cart.delivery') }}" class="btn btn-success pull-right">Valider mon panier</a>

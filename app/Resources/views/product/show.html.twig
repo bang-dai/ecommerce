@@ -15,7 +15,7 @@
                     <h4>{{ product.name }}</h4>
                     <h5>{{ product.category.name }}</h5>
                     <p>{{ product.description }}</p>
-                    <h4>{{ product.price|vat(product.vat.multiplicate) }} € TTC</h4>
+                    <h4>{{ product.price|ttc(product.vat.value) }} € TTC</h4>
                     <form action="{{ path('cart.add', {'id' : product.id}) }}" method="get">
 
                         <select name="qte" class="span1">
