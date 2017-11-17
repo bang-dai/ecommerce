@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Address;
 use AppBundle\Entity\Product;
+use AppBundle\Form\AddressType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,9 +30,14 @@ class CartController extends Controller
      * @Route("/delivery", name="cart.delivery")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deliveryAction()
+    public function deliveryAction(Request $request)
     {
-        return $this->render(':cart:delivery.html.twig');
+        $form = $this->createForm(AddressType::class, new Address());
+
+        return $this->render(':cart:delivery.html.twig', [
+            'form' => $form->createView(),
+            'user' => $this->getUser()
+        ]);
     }
 
     /**

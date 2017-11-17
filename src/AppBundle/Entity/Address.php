@@ -73,7 +73,7 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="address2", type="string", length=255)
+     * @ORM\Column(name="address2", type="string", length=255, nullable=true)
      */
     private $address2;
 
@@ -310,5 +310,10 @@ class Address
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function getComplete()
+    {
+        return sprintf('%s %s %s - %s', $this->getAddress(), $this->getCp(), $this->getCity(), $this->getCountry());
     }
 }
