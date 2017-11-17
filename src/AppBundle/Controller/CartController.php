@@ -63,7 +63,7 @@ class CartController extends Controller
         $cart = $session->get('cart');
         $qte = $request->get('qte') ? $request->get('qte') : 1;
         //$cart[$id] = array_key_exists($id, $cart) ? $cart[$id] + (int)$qte : (int)$qte;
-        $cart[$id] = array_key_exists($id, $cart) ? (int)$qte : (int)$qte;
+        $cart[$id] = array_key_exists($id, $cart) ? (int) $qte : (int) $qte;
         $session->set('cart', $cart);
         $this->addFlash('success', 'Article ajouté avec succès');
 

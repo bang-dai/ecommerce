@@ -14,11 +14,11 @@ class AppExtension extends \Twig_Extension
 
     public function computeTTC($priceHT, $vat)
     {
-        return round($priceHT * (1 + $vat/100), 2);
+        return round($priceHT * (1 + $vat / 100), 2);
     }
 
     public function computeVAT($priceHT, $vat)
     {
-        return round($priceHT * ($vat/100), 2);
+        return round($priceHT * ($vat / 100), 2);
     }
 }
