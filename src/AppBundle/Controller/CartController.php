@@ -20,15 +20,7 @@ class CartController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $session = $request->getSession();
-        if (!$session->has('cart')) {
-            $session->set('cart', array());
-        }
-        $cart = $session->get('cart');
-        $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository(Product::class)->findById(array_keys($cart));
-
-        return $this->render(':cart:index.html.twig', ['products' => $products, 'cart' => $cart]);
+        return $this->getCartItems($request, ':cart:index.html.twig');
     }
 
 
@@ -90,6 +82,11 @@ class CartController extends Controller
 
     public function menuAction(Request $request)
     {
+        return $this->getCartItems($request, ':cart:menu.html.twig');
+    }
+
+    protected function getCartItems(Request $request, string $template)
+    {
         $session = $request->getSession();
         if (!$session->has('cart')) {
             $session->set('cart', array());
@@ -98,6 +95,6 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository(Product::class)->findById(array_keys($cart));
 
-        return $this->render(':cart:menu.html.twig', ['products' => $products, 'cart' => $cart]);
+        return $this->render($template, ['products' => $products, 'cart' => $cart]);
     }
 }
