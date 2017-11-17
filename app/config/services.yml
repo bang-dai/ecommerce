@@ -34,6 +34,12 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
+
+    AppBundle\EventSubscriber\RedirectionSubscriber:
+        arguments: ['@service_container', '@session']
+        tags:
+            - { name: kernel.event_subscriber }
+
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
