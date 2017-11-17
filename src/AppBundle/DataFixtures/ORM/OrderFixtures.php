@@ -23,7 +23,7 @@ class OrderFixtures extends Fixture
             $order->setDate(new \DateTime());
             $order->setReference($i);
             $order->setProducts(array(
-               $this->getReference('product'.$i)->getId() => 1
+                $this->getReference('product'.$i)->getId() => 1
             ));
             $manager->persist($order);
         }
